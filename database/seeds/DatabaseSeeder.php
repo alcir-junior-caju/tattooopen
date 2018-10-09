@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use TrustTattoo\User;
+use TattooOpen\User;
 
 class DatabaseSeeder extends Seeder
 {

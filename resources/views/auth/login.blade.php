@@ -28,7 +28,7 @@
                                 'class' => 'col-sm-4 col-form-label text-md-right control-label'
                             ]) !!}
                             <div class="col-md-6">
-                                {!! Form::email('email', old('email'), [
+                                {!! Form::email('email', 'admin@test.com', [
                                     'class' => $errors->has('email') ? 'form-control is-invalid' : 'form-control',
                                     'id' => 'email',
                                     'required' => ''
@@ -52,7 +52,8 @@
                             ]) !!}
 
                             <div class="col-md-6">
-                                {!! Form::password('password', [
+                                {{-- Change for Form::password and remove value --}}
+                                {!! Form::text('password', 'TattooTestLaravel', [
                                     'class' => $errors->has('password') ? 'form-control is-invalid' : 'form-control',
                                     'id' => 'password',
                                     'required' => ''

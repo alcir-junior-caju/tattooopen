@@ -58,10 +58,7 @@ class ContactsController extends Controller
         $data = $request->except(['anamnesis']);
 
         if ($request->hasFile('avatar')) :
-            $birthday = str_replace('/', '-', $request->input('birthday'));
-            $imageName  = strtolower($birthday . '-' . $request->input('first_name') . '-' . $request->input('last_name'));
-            $imageName .= '.' . $request->avatar->getClientOriginalExtension();
-            $data['avatar'] = $request->avatar->storeAs('avatars', $imageName);
+            $data['avatar'] = $this->avatarImage($request);
         endif;
 
         $contact = $this->contact->create($data);
@@ -136,10 +133,7 @@ class ContactsController extends Controller
         $data = $request->all();
 
         if ($request->hasFile('avatar')) :
-            $birthday = str_replace('/', '-', $request->input('birthday'));
-            $imageName  = strtolower($birthday . '-' . $request->input('first_name') . '-' . $request->input('last_name'));
-            $imageName .= '.' . $request->avatar->getClientOriginalExtension();
-            $data['avatar'] = $request->avatar->storeAs('avatars', $imageName);
+            $data['avatar'] = $this->avatarImage($request);
         endif;
 
         $contact->update($data);
@@ -191,5 +185,13 @@ class ContactsController extends Controller
         Flash::success('<i class="fas fa-check-circle"></i> A Sessão foi excluida corretamente!')->important();
         $session->delete();
         return redirect()->route('admin.contacts.show', $request->all());
+    }
+
+    private function avatarImage($data) {
+        $birthday = str_replace('/', '-', $data->input('birthday'));
+        $imageName  = strtolower($birthday . '-' . $data->input('first_name') . '-' . $data->input('last_name'));
+        $imageName .= '.' . $data->avatar->getClientOriginalExtension();
+        $data = $data->avatar->storeAs('avatars', $imageName);
+        return $data;
     }
 }
