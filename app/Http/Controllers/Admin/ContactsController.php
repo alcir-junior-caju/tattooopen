@@ -32,7 +32,7 @@ class ContactsController extends Controller
      */
     public function index()
     {
-        $contact = $this->contact->orderBy('id', 'asc')->paginate(50);
+        $contact = $this->contact->orderBy('id', 'desc')->paginate(50);
         return view('admin.contacts.index')->with('contacts', $contact);
     }
 
